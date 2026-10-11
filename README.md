@@ -1,0 +1,60 @@
+# Courtside Scores
+
+A live sports scoreboard and multi-stream hub. "Your front row seat."
+
+Aggregates live, upcoming, and finished games across NBA, WNBA, NFL, MLB, NHL,
+Premier League, and MLS, with scores, game clocks, team records, and streaming
+sources. Add up to four games to a multi-stream view with per-tile backup sources
+and auto-fallback.
+
+Scores are powered by ESPN.
+
+## Running it
+
+```bash
+node server.js
+```
+
+Then open <http://localhost:3001/>. Binds `0.0.0.0` by default; set `PORT` / `HOST`
+via env. **Note:** this app runs on port 3001 (not the default 3000) to avoid a
+clash with Roku Control.
+
+## Layout
+
+```
+server.js          HTTP server, ESPN feed proxy, static + gzip serving
+app.js             frontend: scoreboard, multi-stream tiles, backup fallback
+scoreboard-view.js rendering helpers (score cards, escape, time formatting)
+worker.js          background feed worker
+public/            static assets
+*.test.js          node --test suites (server + UI)
+```
+
+## Features
+
+- Live / upcoming / finished / following filters and date navigation.
+- Per-league live game counts in the sidebar.
+- Multi-stream (up to 4 tiles) with backup stream selection, auto-fallback on a
+  failed player, and fullscreen.
+- Favorite (star) games and per-game streaming-source links.
+
+## Tests
+
+```bash
+node --test            # all suites
+node --test server.test.js
+node --test ui.test.js
+```
+
+## Screenshot
+
+![Courtside Scores](screenshot.png)
+
+## Change log
+
+- 2026-10-06 - Initial build: live scoreboard aggregating multiple leagues from ESPN.
+- 2026-10-07 - Multi-stream view (up to 4 tiles) with backup sources and auto-fallback;
+  gzip + ETag static serving; test suites added.
+- 2026-10-08 - Background feed worker (`worker.js`) for live updates.
+- 2026-10-10 - Port changed to 3001 (via `PORT=3001`) to avoid clashing with Roku
+  Control; added README, screenshot, and this change log.

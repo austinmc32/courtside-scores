@@ -1,0 +1,14 @@
+# Tooling and caches (not part of the app)
+.tools/
+.wrangler/
+.freebuff/
+node_modules/
+
+# Logs
+*.log
+*.err.log
+
+# OS cruft
+Thumbs.db
+desktop.ini
+.DS_Store
